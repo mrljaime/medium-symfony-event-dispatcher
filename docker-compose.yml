@@ -4,5 +4,20 @@ services:
     build:
       context: .
       dockerfile: .docker/php-fpm/Dockerfile
+      target: dev
     volumes:
       - "./:/app:cached"
+    depends_on:
+      - mariadb
+  mariadb:
+    image: mariadb:10.5
+    environment:
+      - "MYSQL_ROOT_PASSWORD=vinitela"
+      - "MYSQL_USERNAME=medium"
+      - "MYSQL_PASSWORD=stories"
+      - "MYSQL_DATABASE=medium_event_dispatcher"
+    volumes:
+      - "db:/var/lib/mysql"
+
+volumes:
+  db:
