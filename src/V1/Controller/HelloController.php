@@ -6,18 +6,25 @@
  * Created at 21/08/23 8:14
  */
 
-namespace App\Controller;
+namespace App\V1\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("/")]
 class HelloController extends AbstractController
 {
-    #[Route("/")]
-    public function helloAction(): Response
+    #[Route("/hello")]
+    public function helloAction(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->json([]);
+        $em->getConnection()->executeQuery('SELECT 1')->fetchOne();
+
+        return $this->json(
+            [
+                'Hello' => $request->get('name', 'World')
+            ]
+        );
     }
 }
