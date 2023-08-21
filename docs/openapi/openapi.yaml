@@ -1,0 +1,58 @@
+openapi: "3.0.3"
+info:
+  title: Medium - Event Dispatcher
+  description: |
+    Aquí está la documentación del API para realizar pruebas y demostrar el uso del componente Event Dispatcher de Symfony  
+    
+    Si quieres encontrar más información sobre el api [aquí hay el artículo](https://medium.com/draft) donde se documenta el uso
+    del componente Event Dispatcher
+  contact:
+    name: José Jaime Ramírez Calvo
+    email: mr.ljaime@gmail.com
+  version: "0.1"
+servers:
+  - url: 127.0.0.1:8001
+    description: Servidor local para desarrollo y pruebas
+tags:
+  - name: hello
+    description: Operaciones de comprobación para funcionamiento
+paths:
+  /api/v1/hello:
+    get:
+      summary: Verifica que todo esté listo y responde "Hola"
+      parameters:
+        - name: name
+          in: query
+          description: Representa el valor de la respuesta "Hola"
+          required: false
+      responses:
+        200:
+          $ref: "#/components/responses/helloResponse"
+      tags:
+        - hello
+components:
+  schemas:
+    hello:
+      title: Hello
+      description: Representa el objeto "Hola"
+      type: object
+      properties:
+        hello:
+          type: string
+  responses:
+    helloResponse:
+      description: |
+        Sólo es para revisar que la configuración mínima esté funcionando y devolverá `hello`
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/hello"
+          examples:
+            default:
+              description: Devuelve el valor `World` cuando no está presente el parámetro `name`
+              value:
+                hello: World
+            queryPresent:
+              description: Devuelve el valor `${request.query.name}` cuando está presente
+              value:
+                hello: ${request.query.name}
