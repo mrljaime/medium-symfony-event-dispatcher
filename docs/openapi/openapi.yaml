@@ -42,7 +42,8 @@ components:
   responses:
     helloResponse:
       description: |
-        Sólo es para revisar que la configuración mínima esté funcionando y devolverá `hello`
+        Sólo es para revisar que la configuración mínima esté funcionando así como la conexión a la base de datos.
+        Si todo funciona correctamente devolvera `hello`
       content:
         application/json:
           schema:
